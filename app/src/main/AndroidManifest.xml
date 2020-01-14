@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.TakeTestMenuActivity"></activity>
+        <activity android:name=".activity.PracticeActivity"></activity>
+        <activity android:name=".activity.TakeTestMenuActivity" />
         <activity android:name=".activity.PracticeMenuActivity" />
         <activity android:name=".activity.MainMenuActivity">
             <intent-filter>
