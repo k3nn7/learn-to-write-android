@@ -3,4 +3,13 @@
     <string name="button_compare">Compare</string>
     <string name="image_description_letter">Image with letter</string>
     <string name="button_clear">Clear</string>
+    <string name="application_name">Learn to Write</string>
+    <string name="practice_button">Practice</string>
+    <string name="take_test_button">Take Test</string>
+    <string name="practice_small_letters_button">Small Letters</string>
+    <string name="practice_capital_letters_button">Capital Letters</string>
+    <string name="practice_all_leters_button">All Letters</string>
+    <string name="test_small_letters_button">Small Letters</string>
+    <string name="test_capital_letters_button">Capital Letters</string>
+    <string name="test_all_letters_button">All Letters</string>
 </resources>
