@@ -1,4 +1,4 @@
-package tech.lalik.learntowrite;
+package tech.lalik.learntowrite.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import tech.lalik.learntowrite.LetterCanvas;
+import tech.lalik.learntowrite.R;
 
 public class MainActivity extends AppCompatActivity {
     private LetterCanvas letterCanvas;
