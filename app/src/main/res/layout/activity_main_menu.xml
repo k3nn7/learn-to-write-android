@@ -4,39 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/holo_blue_dark"
     tools:context=".activity.MainMenuActivity">
 
     <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
+        android:id="@+id/takeTestButton"
+        android:layout_width="@dimen/menu_item_width"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
         android:onClick="openTakeTestMenu"
         android:text="@string/take_test_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/practiceButton" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/applicationName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/application_name"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        android:textColor="@android:color/white"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/practiceButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/applicationLogo" />
+
+    <ImageView
+        android:id="@+id/applicationLogo"
+        android:layout_width="231dp"
+        android:layout_height="271dp"
+        android:contentDescription="@string/application_name"
+        app:layout_constraintBottom_toTopOf="@+id/applicationName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
+        android:id="@+id/practiceButton"
+        android:layout_width="@dimen/menu_item_width"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
         android:onClick="openPracticeMenu"
         android:text="@string/practice_button"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintBottom_toTopOf="@+id/takeTestButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/applicationName" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

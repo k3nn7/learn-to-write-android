@@ -33,4 +33,8 @@ public class PracticeMenuActivity extends AppCompatActivity {
         intent.putExtra(PracticeActivity.PRACTICE_TYPE, PracticeActivity.ALL_LETTERS);
         startActivity(intent);
     }
+
+    public void onGoBack(View view) {
+        finish();
+    }
 }
