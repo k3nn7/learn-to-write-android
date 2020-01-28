@@ -46,8 +46,7 @@ public class LetterCanvas extends View {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
-        this.bitmap = Bitmap.createBitmap(1500, 1500, Bitmap.Config.RGB_565);
-        this.bitmap.setDensity(160);
+        this.bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.RGB_565);
         this.bitmap.eraseColor(Color.WHITE);
         this.canvas = new Canvas(this.bitmap);
         this.canvas.drawColor(Color.WHITE);
