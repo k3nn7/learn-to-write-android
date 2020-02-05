@@ -31,7 +31,7 @@ public class LetterCanvas extends View {
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeJoin(Paint.Join.ROUND);
         paint.setStrokeCap(Paint.Cap.ROUND);
-        paint.setStrokeWidth(20);
+        paint.setStrokeWidth(40);
     }
 
     public void clear() {
