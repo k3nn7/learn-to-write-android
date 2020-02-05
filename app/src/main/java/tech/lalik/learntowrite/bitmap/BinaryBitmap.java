@@ -7,7 +7,6 @@ public class BinaryBitmap {
     private final int height;
     private boolean[][] data;
     private BoundingBox canvasBoundingBox;
-    private BoundingBox contentsBoundingBox;
 
     public BinaryBitmap(int width, int height) {
         this.width = width;
@@ -18,31 +17,31 @@ public class BinaryBitmap {
     }
 
     public BoundingBox getBoundingBox() {
-        if (this.contentsBoundingBox == null) {
-            int x1 = Integer.MAX_VALUE,
-                    y1 = Integer.MAX_VALUE,
-                    x2 = Integer.MIN_VALUE,
-                    y2 = Integer.MIN_VALUE;
+        int x1 = Integer.MAX_VALUE,
+                y1 = Integer.MAX_VALUE,
+                x2 = Integer.MIN_VALUE,
+                y2 = Integer.MIN_VALUE;
 
-            for (int i = 0; i < this.width; i++) {
-                for (int j = 0; j < this.height; j++) {
-                    if (this.data[i][j]) {
-                        x1 = Math.min(x1, i);
-                        y1 = Math.min(y1, j);
-                        x2 = Math.max(x2, i);
-                        y2 = Math.max(y2, j);
-                    }
+        for (int i = 0; i < this.width; i++) {
+            for (int j = 0; j < this.height; j++) {
+                if (this.data[i][j]) {
+                    x1 = Math.min(x1, i);
+                    y1 = Math.min(y1, j);
+                    x2 = Math.max(x2, i);
+                    y2 = Math.max(y2, j);
                 }
             }
-
-            this.contentsBoundingBox = new BoundingBox(x1, y1, x2, y2);
         }
 
-        return this.contentsBoundingBox;
+        return new BoundingBox(x1, y1, x2, y2);
     }
 
     public void turnOnPixel(int x, int y) {
         this.data[x][y] = true;
+    }
+
+    public boolean getPixel(int x, int y) {
+        return this.data[x][y];
     }
 
     @Override
