@@ -7,6 +7,7 @@ public class BinaryBitmap {
     private final int height;
     private boolean[][] data;
     private BoundingBox canvasBoundingBox;
+    private BoundingBox contentsBoundingBox;
 
     public BinaryBitmap(int width, int height) {
         this.width = width;
@@ -17,27 +18,32 @@ public class BinaryBitmap {
     }
 
     public BoundingBox getBoundingBox() {
-        int x1 = Integer.MAX_VALUE,
-                y1 = Integer.MAX_VALUE,
-                x2 = Integer.MIN_VALUE,
-                y2 = Integer.MIN_VALUE;
+        if (this.contentsBoundingBox == null) {
+            int x1 = Integer.MAX_VALUE,
+                    y1 = Integer.MAX_VALUE,
+                    x2 = Integer.MIN_VALUE,
+                    y2 = Integer.MIN_VALUE;
 
-        for (int i = 0; i < this.width; i++) {
-            for (int j = 0; j < this.height; j++) {
-                if (this.data[i][j]) {
-                    x1 = Math.min(x1, i);
-                    y1 = Math.min(y1, j);
-                    x2 = Math.max(x2, i);
-                    y2 = Math.max(y2, j);
+            for (int i = 0; i < this.width; i++) {
+                for (int j = 0; j < this.height; j++) {
+                    if (this.data[i][j]) {
+                        x1 = Math.min(x1, i);
+                        y1 = Math.min(y1, j);
+                        x2 = Math.max(x2, i);
+                        y2 = Math.max(y2, j);
+                    }
                 }
             }
+
+            this.contentsBoundingBox = new BoundingBox(x1, y1, x2, y2);
         }
 
-        return new BoundingBox(x1, y1, x2, y2);
+        return this.contentsBoundingBox;
     }
 
     public void turnOnPixel(int x, int y) {
         this.data[x][y] = true;
+        this.contentsBoundingBox = null;
     }
 
     public boolean getPixel(int x, int y) {
@@ -55,6 +61,7 @@ public class BinaryBitmap {
     }
 
     public void translate(int x, int y) {
+        this.contentsBoundingBox = null;
         boolean[][] source = this.duplicatedData();
 
         for (int i = 0; i < this.width; i++) {
@@ -101,6 +108,7 @@ public class BinaryBitmap {
     }
 
     public void scaleBox(BoundingBox from, BoundingBox to) {
+        this.contentsBoundingBox = null;
         boolean[][] source = this.duplicatedData();
 
         float xScale = (float) from.width / (float) to.width;
@@ -121,13 +129,13 @@ public class BinaryBitmap {
     }
 
     public double closestPixelDistance(int x, int y) {
+        BoundingBox box = this.getBoundingBox();
         int maxR = Math.max(
-                Math.max(x, width - x),
-                Math.max(y, height - y)
+                Math.max(x - box.left, box.right - x),
+                Math.max(y - box.top, box.bottom - y)
         );
 
-
-        for (int r = 0; r < maxR; r++) {
+        for (int r = 0; r <= maxR; r++) {
             for (int i = x - r; i < x + r + 1; i++) {
                 if (canvasBoundingBox.contains(i, y - r) && data[i][y - r]) {
                     return distance(x, y, i, y - r);
