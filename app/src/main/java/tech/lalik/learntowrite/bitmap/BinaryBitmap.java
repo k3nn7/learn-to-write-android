@@ -1,5 +1,6 @@
 package tech.lalik.learntowrite.bitmap;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class BinaryBitmap {
@@ -163,19 +164,30 @@ public class BinaryBitmap {
         return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
     }
 
-    public double distanceToBitmap(BinaryBitmap bitmap2) {
+    public BitmapDistanceResult distanceToBitmap(BinaryBitmap bitmap2) {
+        BoundingBox box = this.getBoundingBox();
+        ArrayList<PixelDistance> distances = new ArrayList<>();
+        int maxDistance = Math.max(box.right - box.left, box.bottom - box.top);
         double totalDistance = 0.0;
         int pixels = 0;
 
-        for (int j = 0; j < this.height; j++) {
-            for (int i = 0; i < this.width; i++) {
+        for (int j = box.top; j < box.bottom; j++) {
+            for (int i = box.left; i < box.right; i++) {
                 if (data[i][j]) {
                     totalDistance += bitmap2.closestPixelDistance(i, j);
                     pixels++;
+                    distances.add(new PixelDistance(
+                            i,
+                            j,
+                            totalDistance / (double) maxDistance
+                    ));
                 }
             }
         }
 
-        return totalDistance / pixels;
+        return new BitmapDistanceResult(
+                totalDistance / pixels,
+                distances
+        );
     }
 }

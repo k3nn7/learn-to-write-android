@@ -2,6 +2,9 @@ package tech.lalik.learntowrite.bitmap;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 public class BinaryBitmapTest {
@@ -105,10 +108,18 @@ public class BinaryBitmapTest {
     public void distance_from_another_bitmap() {
         BinaryBitmap bitmap1 = new BinaryBitmap(3, 3);
         bitmap1.turnOnPixel(1, 1);
+        bitmap1.turnOnPixel(2, 2);
 
         BinaryBitmap bitmap2 = new BinaryBitmap(3, 3);
         bitmap2.turnOnPixel(1, 2);
 
-        assertEquals(1.0, bitmap1.distanceToBitmap(bitmap2), 0.01);
+        ArrayList<PixelDistance> expectedDistances = new ArrayList<>();
+        expectedDistances.add(new PixelDistance(1, 1, 1.0));
+
+
+        BitmapDistanceResult result = bitmap1.distanceToBitmap(bitmap2);
+
+        assertEquals(1.0, result.distance, 0.01);
+        assertArrayEquals(expectedDistances.toArray(), result.pixelDistances.toArray());
     }
 }

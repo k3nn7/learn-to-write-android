@@ -97,7 +97,7 @@ public class TakeTestActivity extends AppCompatActivity {
                 }
             }
 
-            return templateLetterBitmap.distanceToBitmap(writtenLetterBitmap);
+            return templateLetterBitmap.distanceToBitmap(writtenLetterBitmap).distance;
         }
     }
 }
