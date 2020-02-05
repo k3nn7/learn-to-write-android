@@ -15,7 +15,9 @@ import java.util.concurrent.ExecutionException;
 import tech.lalik.learntowrite.LetterCanvas;
 import tech.lalik.learntowrite.R;
 import tech.lalik.learntowrite.bitmap.BinaryBitmap;
+import tech.lalik.learntowrite.bitmap.BitmapDistanceResult;
 import tech.lalik.learntowrite.bitmap.BoundingBox;
+import tech.lalik.learntowrite.bitmap.PixelDistance;
 
 public class TakeTestActivity extends AppCompatActivity {
     private LetterCanvas letterCanvas;
@@ -97,7 +99,13 @@ public class TakeTestActivity extends AppCompatActivity {
                 }
             }
 
-            return templateLetterBitmap.distanceToBitmap(writtenLetterBitmap).distance;
+            BitmapDistanceResult result = templateLetterBitmap.distanceToBitmap(writtenLetterBitmap);
+            for (PixelDistance pixelDistance : result.pixelDistances) {
+                int color = Color.rgb((int)(255 * pixelDistance.distance), (int)(255 * (1.0 - pixelDistance.distance)), 0);
+                writtenLetter.setPixel(pixelDistance.x, pixelDistance.y, color);
+            }
+
+            return result.distance;
         }
     }
 }

@@ -131,10 +131,10 @@ public class BinaryBitmap {
 
     public double closestPixelDistance(int x, int y) {
         BoundingBox box = this.getBoundingBox();
-        int maxR = Math.max(
+        int maxR = Math.max(Math.max(
                 Math.max(x - box.left, box.right - x),
                 Math.max(y - box.top, box.bottom - y)
-        );
+        ), 20);
 
         for (int r = 0; r <= maxR; r++) {
             for (int i = x - r; i < x + r + 1; i++) {
@@ -167,19 +167,19 @@ public class BinaryBitmap {
     public BitmapDistanceResult distanceToBitmap(BinaryBitmap bitmap2) {
         BoundingBox box = this.getBoundingBox();
         ArrayList<PixelDistance> distances = new ArrayList<>();
-        int maxDistance = Math.max(box.right - box.left, box.bottom - box.top);
         double totalDistance = 0.0;
         int pixels = 0;
 
         for (int j = box.top; j < box.bottom; j++) {
             for (int i = box.left; i < box.right; i++) {
                 if (data[i][j]) {
-                    totalDistance += bitmap2.closestPixelDistance(i, j);
+                    double distance = bitmap2.closestPixelDistance(i, j);
+                    totalDistance += distance;
                     pixels++;
                     distances.add(new PixelDistance(
                             i,
                             j,
-                            totalDistance / (double) maxDistance
+                            Math.min(1.0, distance / 50)
                     ));
                 }
             }
